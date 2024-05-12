@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <div class="container">
+        <div class="grid-2">
+            <div class="col-1">
+                <div class="cart col-top">
+                    <p>ОПИС</p>
+                    <p>КІЛЬКІСТЬ</p>
+                    <p>ВИДАЛИТИ</p>
+                    <p>ЦІНА</p>
+                </div>
+                <hr>
+                {% for product in cart %}
+                    <div class="cart" data-product-id="{{ product._id }}">
+                        <div class="inline-gap">
+                            <div class="img-card">
+                                <img src="{{ url_for('assets', path='users_uploads/') }}{{ product.image }}">
+                            </div>
+                            <div class="cart-info">
+                                <p class="card-title">{{ product.name }}</p>
+                                {% if not product.options == [] %}
+                                    <p class="card-info">{{ product.options[product['selected_option']]['option_price'] }} UAH</p>
+                                {% else %}
+                                    <p class="card-info">{{ product.price }} UAH</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="detail-buy">
+                            <form class="amount-controls">
+                                <input type="button" class="amount-control-btn subtract_amount" name="subtract_amount" id="subtract_amount" value="-">
+                                <input type="number" class="amount-index amount_index" name="amount_index" id="amount_index" value="{{ product.amount }}" readonly>
+                                <input type="button" class="amount-control-btn add_amount" name="add_amount" id="add_amount" value="+">
+                            </form>
+                        </div>
+                        <a href="/cart/delete/{{ product._id }}"><button type="submit" name="button">ВИДАЛИТИ</button></a>
+                        {% if not product.options == [] %}
+                            <p class="card-info">{{ product.options[product['selected_option']]['option_price'] * product.amount }} UAH</p>
+                        {% else %}
+                            <p class="card-info">{{ product.price * product.amount }} UAH</p>
+                        {% endif %}
+                    </div>
+                    <hr>
+                {% endfor %}
+
+            </div>
+            <form class="col-2" method="post" action="/order/create/">
+                <div class="input">
+                    <p>Введіть ім'я</p>
+                    <input type="text" name="first_name" id="first_name" placeholder="Ваше ім'я" required>
+                </div>
+                <div class="input">
+                    <p>Введіть прізвище</p>
+                    <input type="text" name="last_name" id="last_name" placeholder="Ваше прізвище" required>
+                </div>
+                <div class="input">
+                    <p>Введіть Email</p>
+                    <input type="email" name="email" id="email" placeholder="Ваш Email" required>
+                </div>
+                <div class="input">
+                    <p>Введіть номер телефону</p>
+                    <input type="number" name="tel" id="tel" placeholder="Ваш номер телефону" required>
+                </div>
+                <div class="input">
+                    <p>Введіть коментар</p>
+                    <textarea name="textarea" id="text" cols="30" rows="10"></textarea>
+                </div>
+                <div class="card-info">
+                    <div class="inline-flex">
+                        <p class="card-title">До сплати:</p>
+                        <p class="card-title">{{ cart_price }} UAH</p>
+                    </div>
+                    <button type="submit" name="button" class="full-btn">ЗАМОВИТИ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+
+ <script src="{{ url_for('assets', path='js/cart.js') }}"></script>
+
+{% endblock %}

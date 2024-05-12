@@ -1,0 +1,166 @@
+{% extends "admin_layout.html" %}
+
+{% block admin_main %}
+    <header class="header">
+        <a href="{{ url_for('admin') }}">
+            <img class="admin-logo" src="{{ url_for('assets', path='images/svg/logo.svg') }}" alt="logo">
+        </a>
+    </header>
+
+	<main class="main">
+        <div class="columns">
+			<div class="options">
+				<h2 class="options-title">НАЛАШТУВАННЯ</h2>
+				<a href="{{ url_for('admin') }}"><button type="button" name="button" class="link-btn">
+					ДАШБОРД
+                </button></a>
+                <a href="{{ url_for('products') }}"><button type="button" name="button" class="link-btn active">
+					ТОВАРИ
+				</button></a>
+                <a href="{{ url_for('slider_admin') }}"><button type="button" name="button" class="link-btn" id="add-slider-btn">
+                    СЛАЙДЕР
+				</button></a>
+			</div>
+			<div class="categories-items">
+				<div class="table-title">
+					<h2 class="table-title">
+						Товари
+					</h2>
+				</div>
+				<div class="add-products">
+                    <div class="add-new" id="add-new">
+                        <img src="{{ url_for('assets', path='images/svg/add.svg') }}" alt="add">
+                    </div>
+                    {% for product in products %}
+                        <div class="card">
+                            <img class="card-img" src="{{ url_for('assets', path='users_uploads/') }}{{ product.image }}" alt="{{ product.name }}">
+                            <h2 class="card-label">{{ product.name }}</h2>
+                            <div class="produсt-price">
+                                <h2 class="produсt-count">{{ product.price }} UAH</h2>
+                                <a href="/product/delete/{{ product._id }}"><img class="mini-img" src="{{ url_for('assets', path='images/svg/trash.svg') }}" alt="trash"></a>
+                                <a href="/product/edit/{{ product._id }}"><button>Редагувати</button></a>
+                            </div>
+                        </div>
+                    {% endfor %}
+				</div>
+			</div>
+		</div>
+
+        <div class="popup-fade" id="add-product">
+            <div class="popup">
+                <form id="product-form" class="add-product-form" enctype="multipart/form-data">
+                    <div class="product-form-content">
+                        <div class="popup-col">
+                            <div class="popup-col-content">
+                                <div class="popup-input">
+                                    <div class="popup-input-title">Придумайте назву товару</div>
+                                    <input type="text" name="product_name" id="product_name" placeholder="Назва товару" required>
+                                </div>
+                            </div>
+
+                            <div class="popup-col-content">
+                                <div class="popup-input">
+                                    <div class="popup-group">
+                                        <textarea class="textarea" name="product_description" id="product_description" cols="30" rows="10"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="popup-col-content">
+                                <div class="popup-input">
+                                    <div class="popup-input-title">Головне фото товару</div>
+                                    <input type="file" name="product_main_image" id="product_main_image">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="popup-col">
+                            <div class="popup-col-content">
+                                <div class="popup-input">
+                                    <div class="popup-input-title">
+                                        <p>Вкажіть ціну товару</p>
+                                        <img class="popup-close" src="{{ url_for('assets', path='images/svg/close.svg') }}" id="close-add-product" alt="close">
+                                    </div>
+                                    <input type="number" name="product_price" id="product_price" placeholder="Ціна товару">
+                                </div>
+                            </div>
+                            <div class="popup-col-content">
+                                <div class="popup-input">
+                                    <div class="popup-input-title">Виберіть категорію товару</div>
+                                    <select style="width: 15rem;" name="product_category" id="product_category">
+                                        {% for item in categories_for_products %}
+                                            {% if item.type == "category" %}
+                                                <option value="{{ item._id }}">[КАТЕГОРІЯ] {{ item.name }}</option>
+                                            {% else %}
+                                                <option value="{{ item._id }}">[ПІД-КАТЕГОРІЯ] {{ item.name }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="popup-col-content">
+                                <div class="popup-input">
+                                    <div class="popup-input-title">Додаткові опції товару (необов'язково)</div>
+                                    <div class="popup-group">
+                                        <div class="popup-subgroup">
+                                            <input type="text" name="option_name" id="option_name" placeholder="Вкажіть назву опції">
+                                            <input type="number" name="option_price" id="option_price" placeholder="Вкажіть ціну опції">
+                                            <select style="width: 15rem;">
+                                                <optgroup label="Додаткові опції" id="product_options"></optgroup>
+                                            </select>
+
+                                            <div class="popup-buttons">
+                                                <button type="button" class="add-option-btn" id="add-option-btn">Додати опцію</button>
+                                            </div>
+                                        </div>`
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="add-product-messages"></div>
+                    <button type="submit" class="add-product-btn">Додати продукт</button>
+                </form>
+            </div>
+        </div>
+	</main>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('assets', path='js/modals.js') }}"></script>
+    <script src="{{ url_for('assets', path='js/ajax/create-product.js') }}"></script>
+    <script src="{{ url_for('assets', path='js/create-option.js') }}"></script>
+{% endblock %}
+
+{#{% block main %}#}
+{#<form action="/admin/product/add/" method="POST" enctype="multipart/form-data">#}
+{#    <h1>Создать товар</h1>#}
+{#    <input type="text" name="product_name" id="product_name" placeholder="Название товара" required><br>#}
+{#    <input type="text" name="product_description" id="product_description" placeholder="Описание товара" required><br>#}
+{#    <input type="text" name="product_price" id="product_price" placeholder="Цена товара" required><br>#}
+{#    <input type="file" accept="image/png, image/jpg, image/jpeg, image/png, image/webp, image/svg+xml" name="product_image" id="product_image" placeholder="Картинка товара" required><br><br>#}
+{##}
+{#    <br><br>#}
+{##}
+{#    <h3>Опции товара</h3>#}
+{##}
+{#    <div id="options_container">#}
+{##}
+{#    </div>#}
+{#    <br>#}
+{#    <button type="button" name="add_option" id="add_option">Добавить опцию</button><br><br>#}
+{##}
+{#    <label for="product_category">Выберите категорию товара</label><br>#}
+{#    <select name="product_category" id="product_category">#}
+{#        {% for item in categories_for_products %}#}
+{#            {% if item.type == 'category' %}#}
+{#                <option value="{{ item._id }}">[КАТЕГОРИЯ] {{ item.name }}</option>#}
+{#            {% else %}#}
+{#                <option value="{{ item._id }}">[ПОД-КАТЕГОРИЯ] {{ item.name }}</option>#}
+{#            {% endif %}#}
+{#        {% endfor %}#}
+{#    </select><br><br>#}
+{##}
+{#    <button type="submit">Добавить товар</button>#}
+{#</form>#}
+{#{% endblock %}#}

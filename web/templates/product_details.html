@@ -1,0 +1,226 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <style>
+
+
+.product-details-photos {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    margin: 1rem;
+    overflow: hidden;
+    box-shadow: 0px 1px 3px 1px rgb(34 60 80 / 20%);
+    z-index: 1;
+    max-height: 30rem;
+    max-width: 30rem;
+}
+
+.product-details-header {
+    text-transform: uppercase;
+}
+
+a[data-fancybox] img {
+  cursor: zoom-in;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.itc-slider__item {
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+  user-select: none !important;
+  will-change: transform !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.fancybox__backdrop::after {
+  content: "";
+  position: absolute;
+  width: 10%;
+  height: 10%;
+  filter: blur(2px);
+  left: 50%;
+  top: 50%;
+  transform: scale(11);
+  opacity: 0.3;
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.fancybox__container {
+  --fancybox-bg: #000;
+
+  --fancybox-thumbs-width: 48px;
+  --fancybox-thumbs-ratio: 1;
+
+  --carousel-button-bg: rgb(91 78 76 / 74%);
+
+  --carousel-button-svg-width: 24px;
+  --carousel-button-svg-height: 24px;
+
+  --carousel-button-svg-stroke-width: 2.5;
+}
+
+.fancybox__nav {
+  --carousel-button-svg-width: 24px;
+  --carousel-button-svg-height: 24px;
+}
+
+.fancybox__nav .carousel__button.is-prev {
+  left: 20px;
+}
+
+.fancybox__nav .carousel__button.is-next {
+  right: 20px;
+}
+
+.carousel__button.is-close {
+  right: auto;
+  top: 20px;
+  left: 20px;
+}
+
+.fancybox__slide {
+  padding: 8px 88px;
+}
+
+/* Thumbnails */
+.fancybox__thumbs .carousel__slide {
+  padding: 8px 8px 16px 8px;
+}
+
+.is-nav-selected::after {
+  display: none;
+}
+
+.fancybox__thumb {
+  border-radius: 6px;
+  opacity: 0.4;
+}
+
+.fancybox__thumb:hover,
+.is-nav-selected .fancybox__thumb {
+  border-radius: 6px;
+  opacity: 1;
+}
+
+.is-nav-selected .fancybox__thumb::after {
+  display: none;
+}
+
+    </style>
+
+    <section class="container detail-columm">
+        <div class="product-details-photos">
+            <div class="itc-slider" data-slider="itc-slider" data-loop="false" data-autoplay="false">
+                <div class="itc-slider__wrapper">
+                    <div class="itc-slider__items">
+                        <div class="itc-slider__item">
+                            <a data-fancybox="gallery" href="{{ url_for('assets', path='users_uploads/') }}{{ product.image }}">
+                                <img class="rounded" src="{{ url_for('assets', path='users_uploads/') }}{{ product.image }}">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form class="detail-info" action="/cart/add/" method="POST">
+            <input type="hidden" name="product_id" id="product_id" value="{{ product._id }}">
+
+            <div class="detail-label">
+                <p class="item-status">В наявності</p>
+                <h2 class="item-title">{{ product.name }}</h2>
+            </div>
+            <h2 class="item-price">{{ product.price }} UAH</h2>
+            <div class="detail-options">
+                <h2 class="options-title">Оберіть варіант</h2>
+                <select name="selected-option" id="selected-option" class="detail-select">
+                    {% for option in product.options %}
+                        <option value="{{ loop.index0 }}">{{ option.option_name }} — {{ option.option_price }} UAH</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="detail-line"></div>
+            <div class="detail-buy">
+                <div class="amount-controls">
+                    <input type="button" class="amount-control-btn" name="subtract_amount" id="subtract_amount" value="-">
+                    <input type="number" class="amount-index" name="amount_index" id="amount_index" value="1">
+                    <input type="button" class="amount-control-btn" name="add_amount" id="add_amount" value="+">
+                </div>
+                <button type="submit" name="button" class="full-btn">До кошика</button>
+            </div>
+            <div class="detail-description">
+                <p class="description-tab">ОПИС</p>
+                <div class="detail-line"></div>
+                <p class="item-description">{{ product.description | safe }}</p>
+            </div>
+        </form>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('assets', path='js/product_details.js') }}"></script>
+
+    <script>
+$(function () {
+$(".slider").slick({
+    autoplay: false,
+    dots: true,
+    customPaging : function(slider, i) {
+        var thumb = $(slider.$slides[i]).data('thumb');
+        return '<a><img src="'+thumb+'"></a>';
+    },
+});
+  var trueHeight,
+      trueWidth,
+      img;
+  $('.slick-slide').hover(function(e){
+
+    img = $(this).find('img');
+    trueHeight = img.height();
+    trueWidth = img.width();
+    var imgHeight = img.prop('naturalHeight');
+    var imgWidth = img.prop('naturalWidth');
+
+    img.height(imgHeight);
+    img.width(imgWidth);
+
+    $(this).mousemove(function(e) {
+
+       var cursor_position = {
+      x: e.clientX - $(this).offset().left + $(window).scrollLeft(), // Положение курсора слева
+      y: e.clientY - $(this).offset().top + $(window).scrollTop() // Положение курсора сверху
+       },
+    imagebox__img = img,
+    image_position = {
+      left: ((cursor_position.x / $(this).innerWidth()) * imagebox__img.width() - cursor_position.x) * -1, // Вычисляем позицию картинки слева
+      top: ((cursor_position.y / $(this).innerHeight()) * imagebox__img.height() - cursor_position.y) * -1 // Вычисляем позицию картинки сверху
+    }
+    imagebox__img.css({
+      position: 'absolute',
+      top: image_position.top,
+      left: image_position.left
+    });
+
+
+      });
+  }, function(){
+
+     img.css({'position': 'relative', 'top': 0,'left': 0});
+     img.height(trueHeight);
+     img.width(trueWidth);
+
+  });
+});
+    </script>
+{% endblock %}

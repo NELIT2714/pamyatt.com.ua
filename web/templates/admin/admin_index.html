@@ -1,0 +1,124 @@
+{% extends "admin_layout.html" %}
+
+{% block admin_main %}
+    <header class="header">
+        <a href="{{ url_for('admin') }}">
+            <img class="admin-logo" src="{{ url_for('assets', path='images/svg/logo.svg') }}" alt="logo">
+        </a>
+    </header>
+
+    <main class="main">
+        <div class="columns">
+			<div class="options">
+				<h2 class="options-title">НАЛАШТУВАННЯ</h2>
+				<a href="{{ url_for('admin') }}"><button type="button" name="button" class="link-btn active">
+					ДАШБОРД
+                </button></a>
+                <a href="{{ url_for('products') }}"><button type="button" name="button" class="link-btn">
+					ТОВАРИ
+				</button></a>
+				<button type="button" name="button" class="link-btn" id="add-category-btn">
+					ДОДАТИ КАТЕГОРІЮ
+				</button>
+                <a href="{{ url_for('slider_admin') }}"><button type="button" name="button" class="link-btn" id="add-slider-btn">
+                    СЛАЙДЕР
+				</button></a>
+			</div>
+            <div class="categories-items">
+                <div class="table-categories">
+                    <h2 class="table-title">
+                        Категорії
+                    </h2>
+                    <h2 class="table-title">
+                        Під-категорії
+                    </h2>
+                </div>
+                <div class="categories">
+                    {% for category in categories_childs %}
+                        <div class="category">
+                            {% if category.childs %}
+                                <div class="category-item">
+                                    <h2 class="category-title">
+                                        {{ category.name }}
+                                    </h2>
+                                    <button type="button" class="possible-btn" disabled>Видалити</button>
+                                </div>
+                            {% else %}
+                                <form class="category-item" action="/admin/category/delete/" method="POST">
+                                    <input type="hidden" name="category_id" id="category_id" value="{{ category._id }}">
+                                    <h2 class="category-title">
+                                        {{ category.name }}
+                                    </h2>
+                                    <button type="submit" class="possible-btn">Видалити</button>
+                                </form>
+                            {% endif %}
+
+                            <div class="sub-category">
+                                {% if category.childs %}
+                                    {% for child in category.childs %}
+                                        <form class="sub-category-items" action="/admin/sub-category/delete/" method="POST">
+                                            <input type="hidden" name="sub_category_id" id="sub_category_id" value="{{ child._id }}">
+                                            <h2 class="category-title">{{ child.name }}</h2>
+                                            <button type="submit" name="button" class="possible-btn">Видалити</button>
+                                        </form>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="sub-category-items">
+                                        <h2 class="category-title">Під-категорії відсутні</h2>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="popup-fade" id="add-category">
+            <div class="popup">
+                <form class="add-product-form" action="/admin/category/add/" enctype="multipart/form-data" method="POST">
+                    <div class="product-form-content">
+                        <div class="popup-col">
+                            <label class="popup-label">Створити категорію</label>
+                            <div class="popup-col-content">
+                                <div class="popup-input">
+                                    <div class="popup-input-title">Придумайте назву</div>
+                                    <input type="text" name="category_name" id="category_name" placeholder="Назва категорії" required>
+                                </div>
+                                <div class="popup-input">
+                                    <div class="popup-input-title">Картинка категорії</div>
+                                    <input type="file" name="category_image" id="category_image" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="popup-col">
+                            <div class="inline-gap">
+                                <label class="popup-label">Це під-категорія!</label>
+                                <label class="checkbox"><input type="checkbox" name="sub_category_check" id="sub_category_check"><span></span></label>
+
+                                <img class="popup-close" src="{{ url_for('assets', path='images/svg/close.svg') }}" id="popup-category-close" alt="close">
+                            </div>
+                            <div class="popup-col-content">
+                                <div class="popup-input">
+                                    <div class="popup-input-title">Виберіть батьківську категорію</div>
+                                    <select name="sub_category" id="sub_category">
+                                        {% for category in categories %}
+                                            <option value="{{ category._id }}">{{ category.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="add-product-btn">Створити категорію</button>
+                </form>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('assets', path='js/modals.js') }}"></script>
+{% endblock %}

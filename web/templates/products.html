@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block main %}
+	<section class="container main-products">
+        {% if search_result or search_result == [] %}
+            <h2 class="products-title">Пошук</h2>
+        {% else %}
+            {% if sub_category %}
+                <h2 class="products-title">{{ sub_category.name }}</h2>
+            {% else %}
+                <h2 class="products-title">{{ category.name }}</h2>
+            {% endif %}
+        {% endif %}
+        <div class="products-columns">
+            <div class="products-section">
+                {% for item in categories %}
+                    <div class="section-link">
+                        <img src="{{ url_for('assets', path='images/svg/Christ.svg') }}" alt="Christ">
+                        <a href="/category/{{ item.url }}" class="section-title">
+                            {{ item.name }}
+                        </a>
+                    </div>
+
+                    {% for item2 in item.childs %}
+                        <div class="section-link">
+                            <img class="link-sub-category" src="{{ url_for('assets', path='images/svg/Christ.svg') }}" alt="Christ">
+                            <a href="/category/{{ item.url }}/{{ item2.url }}" class="section-title">
+                                {{ item2.name }}
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            {% if not search_result == [] %}
+                <div class="products-items">
+                    {% for product in products %}
+                        <div class="card"><a href="/product/{{ product._id }}">
+                            <img class="card-img" src="{{ url_for('assets', path='users_uploads/') }}{{ product.image }}" alt="{{ product.name }}">
+                            <div class="items-column">
+                                <h2 class="card-label">{{ product.name }}</h2>
+                                <h2 class="card-title">{{ product.price }} UAH</h2>
+                                <a href="/product/{{ product._id }}"><button class="card-btn" type="button">Придбати</button></a>
+                                {% if session %}
+                                	<a href="/product/edit/{{ product._id }}"><button>edit</button></a>
+                                {% endif %}
+                            </div>
+                        </a></div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <h3 style="text-align: center;">Нічого не знайдено!</h3>
+            {% endif %}
+        </div>
+        <div class="pagination">
+            {% if sub_category %}
+                {% for page_num in range(1, total_pages + 1) %}
+                    <a href="/category/{{ category.url }}/{{ sub_category.url }}?page={{ page_num }}">
+                        <button {% if page_num == current_page %}class="active"{% endif %}>{{ page_num }}</button>
+                    </a>
+                {% endfor %}
+            {% else %}
+                {% for page_num in range(1, total_pages + 1) %}
+                    <a href="/category/{{ category.url }}?page={{ page_num }}">
+                        <button {% if page_num == current_page %}class="active"{% endif %}>{{ page_num }}</button>
+                    </a>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

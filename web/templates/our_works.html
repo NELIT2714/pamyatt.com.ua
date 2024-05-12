@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <section>
+{#        <div class="container-slider" id="infiniteScroll--left">#}
+{#            <article>#}
+{#                <div class="wrapper-slider">#}
+{#                    {% for item in slider_images %}#}
+{#                        <img class="img-slider" src="{{ url_for('assets', path='users_uploads/') }}{{ item.image }}" alt="slider">#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{#            </article>#}
+{#        </div>#}
+        <div class="our-works-container">
+            {% for item in works %}
+                <div class="work">
+                    <img class="work-img" src="{{ url_for('assets', path='users_uploads/') }}{{ item.image }}">
+                </div>
+            {% endfor %}
+        </div>
+        <div class="pagination">
+            {% for page_num in range(1, total_pages + 1) %}
+                <a href="/our-works?page={{ page_num }}">
+                    <button {% if page_num == current_page %}class="active"{% endif %}>{{ page_num }}</button>
+                </a>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

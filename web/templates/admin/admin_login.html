@@ -1,0 +1,20 @@
+{% extends "admin_layout.html" %}
+
+{% block admin_main %}
+    <div class="admin-section">
+        <form class="authorization-form" id="admin-auth" method="POST">
+            <img class="authorization-logo" src="{{ url_for('assets', path='images/svg/logo.svg') }}" alt="logo">
+            <h2 class="authorization-title">АВТОРИЗАЦІЯ</h2>
+            <div class="authorization-form">
+                <input type="text" name="username" id="username" placeholder="Логін адміністратора" required>
+                <input type="password" name="password" id="password" placeholder="Пароль" required>
+                <p class="authorization-errors"></p>
+                <button type="submit" class="authorization-btn">ВОЙТИ</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('assets', path='js/ajax/admin-auth.js') }}"></script>
+{% endblock %}

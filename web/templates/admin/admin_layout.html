@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ритуал-сервіс "Памʼять" | Админ-панель</title>
+    
+    {#  Includes  #}
+    <link rel="stylesheet" href="{{ url_for('assets', path='css/admin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('assets', path='css/admin-responsive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('assets', path='css/modals.css') }}">
+</head>
+<body>
+    <div class="wrapper">
+        {% block admin_main %}{% endblock %}
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

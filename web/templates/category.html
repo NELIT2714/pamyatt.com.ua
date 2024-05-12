@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block main %}
+     <!-- categories -->
+        <div class="container category-card">
+            {% for sub_category in sub_categories %}
+                <a href="/category/{{ category.url }}/{{ sub_category.url }}"><div class="card">
+                    <img class="card-img" src="{{ url_for('assets', path='users_uploads/') }}{{ sub_category.image }}" alt="{{ sub_category.name }}">
+                    <div class="items-column">
+                        <div class="card-label">
+                            <h2 class="card-title" style="text-align: center">{{ sub_category.name }}</h2>
+                        </div>
+                        <a class="card-button" href="/category/{{ category.url }}/{{ sub_category.url }}">
+                            <button type="button">Перейти</button>
+                        </a>
+                    </div>
+                </div></a>
+            {% endfor %}
+        </div>
+{% endblock %}

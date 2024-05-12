@@ -1,0 +1,131 @@
+
+{% extends "layout.html" %}
+
+{% block main %}
+    <section>
+        <div class="container-slider" id="infiniteScroll--left">
+            <article>
+                <div class="wrapper-slider">
+                    {% for item in slider_images %}
+                        <img class="img-slider" src="{{ url_for('assets', path='users_uploads/') }}{{ item.image }}" alt="slider">
+                    {% endfor %}
+                </div>
+            </article>
+        </div>
+
+        <div class="container category-card parallax">
+            <div class="parallax-bg"></div>
+            {% for category in categories %}
+                <div class="card"><a href="/category/{{ category.url }}">
+                    <img class="card-img" src="{{ url_for('assets', path='users_uploads/') }}{{ category.image }}" alt="{{ category.name }}">
+                    <div class="card-label">
+                        <h2 class="card-title" style="text-align: center">{{ category.name }}</h2>
+                    </div>
+                    <a class="card-button" href="/category/{{ category.url }}">
+                        <button type="button">Перейти</button>
+                    </a>
+                </a></div>
+            {% endfor %}
+        </div>
+    </section>
+    <section class="container hero-info">
+        <div class="container-angel">
+            <img class="feature-angel" src="{{ url_for('assets', path='images/angel.webp') }}" alt="angel">
+        </div>
+        <!-- info -->
+        <div class="hero-label">
+            <h2 class="hero-title">Чому обирають саме нас?</h2>
+            <p class="hero-description">“Памʼять” – це команда , успішно працює більше 20 років в сфері ритуальних послуг. Доводимо, висока якість продукції, доступна ціна і в результаті задоволений клієнт, по всій території України.</p>
+        </div>
+        <!-- features -->
+        <div class="hero-features">
+            <!-- 1 -->
+            <div class="feature">
+                <h2 class="feature-title">Комунікабельно</h2>
+                <p class="feature-description">Команда наших досвідчених співробітників, швидко та ефективно реагує на поставлені завдання. Ми використовуємо гнучкий підхід в рамках оплати, що враховує можливості та побажання кожного клієнта й конкретного проекту. Ми працюємо заради клієнта , тому обов’язково знайдемо з Вами спільну мову.</p>
+            </div>
+            <!-- 2 -->
+            <div class="feature">
+                <h2 class="feature-title">Надійно</h2>
+                <p class="feature-description">До основних критеріїв професіоналізму підприємства ми відносимо: співвідношення ціни і якості продукції; ексклюзивно розробка 3D моделей кожного проекту; різноманітність кольорів, форм і складності виробів; якість доставки та монтажу під ключ.</p>
+            </div>
+            <!-- 3 -->
+            <div class="feature">
+                <h2 class="feature-title">Динамічно</h2>
+                <p class="feature-description">Постійно вдосконалюєм наше виробництво. Знаходимось в тренді нових технологій. Слідкуємо за всіма новими ідеями в світі виробництва Ритуальних послуг та Архітектурних виробів. Багаторічний досвід роботи допомагає нам вирішувати найскладніші завдання. Ми гарантуємо якість своєї продукції зібраної з сертифікованих гранітів</p>
+            </div>
+        </div>
+    </section>
+    <section class="container about">
+        <div class="about-info">
+            <img class="about-image" src="{{ url_for('assets', path='images/service.webp') }}" alt="service">
+            <h2 class="main-title">Про нас</h2>
+            <p class="about-description">Ласкаво просимо в наш магазин ритуальних послуг – місце, де ми присвячуємо себе наданню вам підтримки і забезпеченню гідного прощання з вашими близькими. Наш магазин створений з розумінням того, що справляти похорон – це важке завдання, і ми готові допомогти вам у кожному кроці цього шляху.</p>
+            <h2 class="about-title">Навіщо обирати нас:</h2>
+            <p class="about-description">- Емпатія та розуміння: Ми розуміємо ваше горе і готові надати вам допомогу, враховуючи ваші особисті потреби та переконання.<br/> - Професіоналізм: Наша команда складається з досвідчених фахівців, готових взяти на себе всі аспекти та надати вам високоякісні послуги.</br> - Індивідуальний підхід: Кожна історія унікальна, і ми готові створити індивідуальні рішення для вас та вашої родини. Обирайте нас, і довірте нам забезпечити гідне прощання з вашим близьким. Ми завжди тут, щоб допомогти вам у цей важкий період.</p>
+        </div>
+    </section>
+    <section>
+        <iframe width="100%" height="760" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d226.7187954898703!2d36.217481424556894!3d49.992040191115784!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4127a10035d690fd%3A0x84ea1d7f4c56f2d2!2z0J_QsNC8yrzRj9GC0Yw!5e0!3m2!1spl!2sus!4v1711736488117!5m2!1spl!2sus" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+    </section>
+
+    <script>
+        document.addEventListener('scroll', function() {
+            var scrollPosition = window.scrollY;
+            var parallaxElements = document.querySelectorAll('.parallax');
+
+            parallaxElements.forEach(function(element) {
+                var speed = 0.5; // Пример значения скорости
+                var parallaxBg = element.querySelector('.parallax-bg');
+                var offset = scrollPosition * speed;
+
+                parallaxBg.style.transform = 'translateY(' + offset + 'px)';
+            });
+        });
+
+        const scrollContainers = document.querySelectorAll("#infiniteScroll--left");
+
+        scrollContainers.forEach((container) => {
+          let isScrollingPaused = false;
+
+          window.addEventListener("load", () => {
+            self.setInterval(() => {
+              if (isScrollingPaused) {
+                return;
+              }
+              const first = container.querySelector("article");
+
+              if (!isElementInViewport(first)) {
+                container.appendChild(first);
+                container.scrollTo(container.scrollLeft - first.offsetWidth, 0);
+              }
+              if (container.scrollLeft >= container.scrollWidth - container.offsetWidth) {
+                container.scrollTo(0, 0);
+              } else {
+                container.scrollTo(container.scrollLeft + 1, 0);
+              }
+            }, 15);
+          });
+
+          function isElementInViewport(el) {
+            var rect = el.getBoundingClientRect();
+            return rect.right > 0;
+          }
+
+          function pauseScrolling() {
+            isScrollingPaused = true;
+          }
+
+          function resumeScrolling() {
+            isScrollingPaused = false;
+          }
+
+          const allArticles = container.querySelectorAll("article");
+          for (let article of allArticles) {
+            article.addEventListener("mouseenter", pauseScrolling);
+            article.addEventListener("mouseleave", resumeScrolling);
+          }
+        });
+    </script>
+{% endblock %}

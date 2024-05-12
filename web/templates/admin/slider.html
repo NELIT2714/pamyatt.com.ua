@@ -1,0 +1,51 @@
+{% extends "admin_layout.html" %}
+
+{% block admin_main %}
+    <header class="header">
+        <a href="{{ url_for('admin') }}">
+            <img class="admin-logo" src="{{ url_for('assets', path='images/svg/logo.svg') }}" alt="logo">
+        </a>
+    </header>
+
+    <main class="main">
+        <div class="columns">
+			<div class="options">
+				<h2 class="options-title">НАЛАШТУВАННЯ</h2>
+				<a href="{{ url_for('admin') }}"><button type="button" name="button" class="link-btn">
+					ДАШБОРД
+                </button></a>
+                <a href="{{ url_for('products') }}"><button type="button" name="button" class="link-btn">
+					ТОВАРИ
+				</button></a>
+                <button type="button" name="button" class="link-btn active" id="add-slider-btn">
+                    СЛАЙДЕР
+				</button>
+			</div>
+            <div class="categories-items">
+				<div class="table-title">
+					<h2 class="table-title">
+						Товари
+					</h2>
+				</div>
+                <form action="/admin/slider/add-image" enctype="multipart/form-data" method="POST" style="display: flex; flex-direction: column; max-width: 10rem;">
+                    <input type="file" name="slider_image" id="slider_image" required>
+                    <button type="submit">Додати</button>
+                </form>
+
+                <div class="slider-images" style="display: flex; flex-wrap: wrap; gap: 2rem;">
+                    {% for image in slider_images %}
+                        <form class="card" action="/admin/slider/delete" method="POST">
+                            <input type="hidden" name="slider_id" id="slider_id" value="{{ image._id }}">
+                            <img class="card-img" src="{{ url_for('assets', path='users_uploads/') }}{{ image.image }}" alt="{{ image._id }}">
+                            <button class="card-btn" type="submit" style="height: 2rem;">ВИДАЛИТИ</button>
+                        </form>
+                    {% endfor %}
+                </div>
+			</div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('assets', path='js/modals.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,27 @@
+@media screen and (max-width: 768px) { 
+    .authorization-logo {
+        width: 40vw;
+    }
+
+    .authorization-title {
+        font-size: 34px;
+    }
+
+    .columns {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .category-title, category-title{
+        font-size: 10px;
+    }
+
+    .add-products {
+        grid-template-columns: repeat(1, 1fr);
+        row-gap: 50px;
+    }
+
+    .modal-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+}

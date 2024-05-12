@@ -1,0 +1,176 @@
+.popup-fade {
+    display: none;
+}
+
+.popup-fade:before {
+	content: '';
+	background: #000;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0.7;
+	z-index: 9999;
+}
+
+.popup {
+    position: fixed;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 20px;
+    z-index: 99999;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
+
+.add-product-btn {
+    width: 100%;
+    background: #000;
+    color: white;
+    text-transform: uppercase;
+    padding: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s all;
+}
+
+.add-product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.product-form-content {
+    display: flex;
+    gap: 5rem;
+}
+
+.popup-input-title {
+    font-size: 10pt;
+    color: grey;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.popup-input-title img {
+    cursor: pointer;
+}
+
+.popup-input {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.popup-group {
+    display: flex;
+    gap: 5px;
+}
+
+.popup-subgroup {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.textarea {
+    padding: 5px;
+    box-sizing: border-box;
+    resize: none;
+    margin-left: 1px;
+}
+
+.popup-subgroup button {
+
+}
+
+.popup-buttons {
+    display: flex;
+}
+
+.add-option-btn {
+    width: 100%;
+    background: #000;
+    color: white;
+    text-transform: uppercase;
+    padding: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s all;
+}
+
+.popup-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.add-product-btn:hover {
+    background: #F2F2F2;
+    color: black;
+}
+
+.add-product-form input {
+    background-color: #F2F2F2;
+    border: none;
+    border-radius: 3px;
+    padding: 1rem;
+    width: 13rem;
+}
+
+.popup-section {
+    position: absolute;
+    width: 100%;
+    background: red;
+    height: 100%;
+}
+
+.inline-gap {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.popup-subgroup button {
+
+}
+
+.popup-buttons {
+    display: flex;
+}
+
+.add-option-btn {
+    width: 100%;
+}
+
+.popup-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.add-product-btn:hover {
+    background: #F2F2F2;
+    color: black;
+}
+
+.add-product-messages {
+
+}
+
+.add-product-messages:empty {
+    display: none;
+}
+
+.popup-label {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.popup-close {
+    z-index: 100;
+}

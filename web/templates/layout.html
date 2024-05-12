@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ритуал-сервіс "Памʼять" | Одинарні памʼятники | Сімейні памʼятники | Ритуальні товари | Огородження | Траурні вінки | Траурні кошики | Пʼєдестали </title>
+    <meta name="description" content="Ласкаво просимо в наш магазин ритуальних послуг – місце, де ми присвячуємо себе наданню вам підтримки і забезпеченню гідного прощання з вашими близькими. Наш магазин створений з розумінням того, що справляти похорон – це важке завдання, і ми готові допомогти вам у кожному кроці цього шляху.">
+    <meta name="keywords" content="Памятник,Гранитные памятники Харьков,памятники,памʼятники,памʼятник,одинарні памʼятники,одинарний памятник,памятники для ЗСУ,памʼятник для зсу×одинарні пам'ятники,одинарні пам'ятники з граніту,Скільки коштує пам ятник з граніту,подвійні памятники,Подвійні пам'ятники,Надмогильні гранітні памятники,Пам'ятники на двох×парні памʼятники,Скільки коштує Подвійний пам ятник на памятники,подвійні памятники з граніту,подвійний пам'ятник батькам,зразки подвійних пам'ятників,подвійні пам'ятники,каталог пам'ятників з цінами,Сімейні пам'ятники,Ексклюзивний сімейний пам'ятник,Елітні пам'ятники для військових,Гранітні пам'ятники для воїнів,на пам'ятники,Пам'ятники військовим ЗСУ,Памʼятник - комплекс з огорожею,Памʼятник у комплекті,Комплекс на могилку,комплект ритуальний,комплекс на могилу,Памʼятник у комплекті з огорожею,Комплексні пам'ятники з огорожею">
+
+    {#  Includes  #}
+    <link rel="stylesheet" href="{{ url_for('assets', path='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('assets', path='css/responsive.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css">
+    <link rel="stylesheet" href="https://itchief.ru//examples/libs/ui-components/itc-slider/itc-slider.css">
+
+    <link rel="shortcut icon" href="{{ url_for('assets', path='images/favicon.webp') }}" type="image/x-icon">
+</head>
+<body>
+    <div class="wrapper">
+        {% if cart_len > 0 %}
+            <a href="/cart/"><div class="cart-block">
+                <div class="value-block">
+                    <p>{{ cart_len }}</p>
+                </div>
+                <div class="cart-img">
+                    <img src="{{ url_for('assets', path='images/svg/cart.svg') }}" alt="cart">
+                </div>
+            </div></a>
+        {% endif %}
+        <header class="header">
+            <div class="container header-items">
+                <!-- logo & title -->
+                <div class="header-images">
+                    <a href="/"><img class="logo" src="{{ url_for('assets', path='images/svg/logo.svg') }}" alt="logo"></a>
+                    <a href="/"><img class="title" src="{{ url_for('assets', path='images/svg/title.svg') }}" alt="title"></a>
+                </div>
+                <!-- location -->
+                <div class="header-location">
+                    <h2 class="location-city">Харків ,Україна</h2>
+                    <p class="location-street">вул.Чоботарська 23</p>
+                </div>
+                <!-- contacts -->
+                <div class="header-contacts">
+                    <a href="tel:+380501740404"><h2 class="phone-number">+380 (50) 174-04-04</h2></a>
+                    <a href="tel:+380971740404"><h2  class="phone-number">+380 (97) 174-04-04</h2></a>
+                </div>
+                <!-- socials -->
+                <div class="header-socials">
+                    <a href="https://www.instagram.com/pamyat_pamyatniki" target="_blank"><img src="{{ url_for('assets', path='images/svg/inst.svg') }}" alt="inst"></a>
+                    <a href="https://t.me/Pamyatnikikh" target="_blank"><img src="{{ url_for('assets', path='images/svg/telegram.svg') }}" alt="telegram"></a>
+                    <a href="https://www.facebook.com/profile.php?id=100077477656435" target="_blank"><img src="{{ url_for('assets', path='images/svg/facebook.svg') }}" alt="facebook"></a>
+                    <a href="https://www.tiktok.com/@pamyatniki_harkov" target="_blank"><img src="{{ url_for('assets', path='images/svg/tiktok.svg') }}" alt="tiktok"></a>
+                </div>
+                <div class="hamburger-menu">
+                  <input id="menu__toggle" type="checkbox" />
+                  <label class="menu__btn" for="menu__toggle">
+                    <span></span>
+                  </label>
+                  <ul class="menu__box">
+                    <div class="header-images burger_header_image">
+                        <a href="/"><img class="logo" src="{{ url_for('assets', path='images/svg/logo.svg') }}" alt="logo"></a>
+                        <a href="/"><img class="title" src="{{ url_for('assets', path='images/svg/title.svg') }}" alt="title"></a>
+                    </div>
+                      <div class="content">
+                          <a href="#accordion1" class="menu__item accordion-btn">Памʼятники <span class="arrow"></span></a>
+                        <div id="accordion1" class="accordion">
+                          <div>
+                            <li><a class="menu__item" href="/category/odinarnі-pamjatniki/">Одинарні памʼятники</a></li>
+                            <li><a class="menu__item" href="/category/sіmejnі-pamjatniki/">Сімейні памʼятники</a></li>
+                            <li><a class="menu__item" href="/category/kompleksi/">Комплекси</a></li>
+                          </div>
+                        </div>
+
+                        <a href="#accordion2" class="accordion-btn menu__item" >Благоустрій <span class="arrow"></span></a>
+                        <div id="accordion2" class="accordion">
+                          <div>
+                            <li><a class="menu__item" href="/category/ogorozhі/">Огородження</a></li>
+                            <li><a class="menu__item" href="/category/pedestali/">Пʼєдестали</a></li>
+                            <li><a class="menu__item" href="/category/kvіtniki/">Квітники</a></li>
+                          </div>
+                        </div>
+
+                      <a href="#accordion3" class="menu__item accordion-btn">Ритуальні товари <span class="arrow"></span></a>
+                        <div id="accordion3" class="accordion">
+                          <div>
+                            <li><a class="menu__item" href="/category/ritualnі-tovari/odinarnі-z-oformlennjam-1/">Вінки траурні</a></li>
+                            <li><a class="menu__item" href="/category/ritualnі-tovari/odinarnі-z-rіzkoju-1/">Траурні кошики</a></li>
+                          </div>
+                        </div>
+                        <li><a class="menu__item" href="{{ url_for('our_works_page') }}">Наші роботи</a></li>
+                        <li><a class="menu__item" href="{{ url_for('contacts_page') }}">Контакты</a></li>
+                        <div class="info-links">
+                            <div style="display: block;" class="header-location">
+                                <h2 style="font-size: 16pt" class="location-city">Харків ,Україна</h2>
+                                <p style="font-size: 16pt" class="location-street">вул.Чоботарська 23</p>
+                            </div>
+                            <!-- contacts -->
+                            <div style="display: block;" class="header-contacts">
+                                <a href="tel:+380501740404"><h2 style="font-size: 16pt" class="phone-number">+380 (50) 174-04-04</h2></a>
+                                <a href="tel:+380971740404"><h2 style="font-size: 16pt" class="phone-number">+380 (97) 174-04-04</h2></a>
+                            </div>
+                            <!-- socials -->
+                            <div style="display: block;" class="header-socials">
+                                <a href="https://www.instagram.com/pamyat_pamyatniki" target="_blank"><img src="{{ url_for('assets', path='images/svg/inst.svg') }}" alt="inst"></a>
+                                <a href="https://t.me/Pamyatnikikh" target="_blank"><img src="{{ url_for('assets', path='images/svg/telegram.svg') }}" alt="telegram"></a>
+                                <a href="https://www.facebook.com/profile.php?id=100077477656435" target="_blank"><img src="{{ url_for('assets', path='images/svg/facebook.svg') }}" alt="facebook"></a>
+                                <a href="https://www.tiktok.com/@pamyatniki_harkov" target="_blank"><img src="{{ url_for('assets', path='images/svg/tiktok.svg') }}" alt="tiktok"></a>
+                            </div>
+                        </div>
+                      </div>
+                  </ul>
+                </div>
+            </div>
+            <!-- search -->
+            <section class="header-menu">
+                <div class="container menu-items">
+                    <form class="search-container" method="GET" action="/search/">
+                        <input type="search" placeholder="Пошук товарів" class="header-search" id="search_text" name="search_text">
+                        <button type="submit"><img src="{{ url_for('assets', path='images/svg/search.svg') }}" alt="Search"></button>
+                    </form>
+                    <!-- links -->
+                    <div class="menu-links">
+                        <div class="dropdown">
+                          <a href="#" class="dropbtn">Памʼятники <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16"><path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg></a>
+                          <div class="dropdown-content">
+                            <a href="/category/odinarnі-pamjatniki/">Одинарні</a>
+                            <a href="/category/sіmejnі-pamjatniki/">Сімейні</a>
+                            <a href="/category/kompleksi/">Комплекси</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <a href="#" class="dropbtn">Благоустрій <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16"><path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg></a>
+                          <div class="dropdown-content">
+                            <a href="/category/ogorozhі/">Огородження</a>
+                            <a href="/category/pedestali/">Пʼєдестали</a>
+                            <a href="/category/kvіtniki/">Квітники</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <a href="#" class="dropbtn">Ритуальні товари <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16"><path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg></a>
+                          <div class="dropdown-content">
+                            <a href="/category/ritualnі-tovari/odinarnі-z-oformlennjam-1/">Вінки траурні</a>
+                            <a href="/category/ritualnі-tovari/odinarnі-z-rіzkoju-1/">Траурні кошики</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <a href="{{ url_for('our_works_page') }}" class="dropbtn">Наші роботи</a>
+                        </div>
+                         <div class="dropdown">
+                            <a class="dropbtn" href="{{ url_for('contacts_page') }}">Контакти</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </header>
+        <main>
+            {% block main %}
+
+            {% endblock %}
+        </main>
+
+    <footer>
+        <div class="container footer">
+            <!-- contact -->
+            <div class="footer-contacts">
+                <h2 class="contacts-label">КОНТАКТНА ІНФОРМАЦІЯ</h2>
+                <h2 class="contacts-location">м.Харків ,Україна вул.Чоботарська 23</h2>
+                <div class="contacts-phoner">
+                    <a href="tel:+380501740404"><h2 class="contacts-phone">+380 (50) 174-04-04</h2></a>
+                    <a href="tel:+380971740404"><h2 class="contacts-phone">+380 (97) 174-04-04</h2></a>
+                </div>
+            </div>
+            <!-- links -->
+            <div class="footer-links" id="column1">
+                {% for category in categories1 %}
+                    <a href="/category/{{ category.url }}">{{ category.name }}</a>
+                {% endfor %}
+                <a href="{{ url_for('our_works_page') }}">Наші роботи</a>
+                <a href="{{ url_for('contacts_page') }}">Контакти</a>
+            </div>
+            <!-- links 2 -->
+            <div class="footer-links" id="column2">
+                {% for category in categories2 %}
+                    <a href="/category/{{ category.url }}">{{ category.name }}</a>
+                {% endfor %}
+            </div>
+
+            <!-- info -->
+            <div class="footer-info">
+                <h2 class="footer-schedule">
+                    Графік роботи
+                </h2>
+                <h2 class="schedule-description">
+                    БЕЗ ВИХІДНИХ
+                </h2>
+                <div class="footer-socials">
+                    <a href="https://www.instagram.com/pamyat_pamyatniki" target="_blank"><img src="{{ url_for('assets', path='images/svg/inst.svg') }}" alt="inst"></a>
+                    <a href="https://t.me/Pamyatnikikh" target="_blank"><img src="{{ url_for('assets', path='images/svg/telegram.svg') }}" alt="telegram"></a>
+                    <a href="https://www.facebook.com/profile.php?id=100077477656435" target="_blank"><img src="{{ url_for('assets', path='images/svg/facebook.svg') }}" alt="facebook"></a>
+                    <a href="https://www.tiktok.com/@pamyatniki_harkov" target="_blank"><img src="{{ url_for('assets', path='images/svg/tiktok.svg') }}" alt="tiktok"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+    <script src="https://itchief.ru/examples/libs/ui-components/itc-slider/itc-slider.js"></script>
+
+    {% block scripts %}
+        <script>
+
+function toggleAccordion(accordionId) {
+    var accordion = document.getElementById(accordionId);
+    accordion.classList.toggle('show');
+
+    // Получаем кнопку аккордеона
+    var accordionBtn = document.querySelector(`[href="#${accordionId}"] .arrow`);
+
+    // Поворачиваем стрелку при открытии/закрытии аккордеона
+    accordionBtn.classList.toggle('rotate');
+}
+
+const accordion_btns = document.querySelectorAll(".accordion-btn");
+
+accordion_btns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        const accordionId = btn.getAttribute("href").slice(1);
+        toggleAccordion(accordionId);
+    });
+});
+
+            let menuBtn = document.querySelector('.menu-btn');
+            let menu = document.querySelector('.nav');
+            let menuItem = document.querySelectorAll('.nav__link');
+
+            menuBtn.addEventListener('click', function(){
+              menuBtn.classList.toggle('active');
+              menu.classList.toggle('active');
+            })
+
+
+            menuItem.forEach (function(menuItem) {
+              menuItem.addEventListener('click',function(){
+                      menuBtn.classList.toggle('active');
+                      menu.classList.toggle('active');
+              })
+            })
+        </script>
+    {% endblock %}
+</body>
+</html>

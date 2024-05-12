@@ -1,0 +1,108 @@
+<a href="/admin/products/">Повернутися</a><br><br>
+
+<form action="/product/edit/" id="edit_product_form" method="POST">
+    <input type="hidden" name="product_id" id="product_id" value="{{ product._id }}">
+
+    <input type="text" name="product_name" id="product_name" placeholder="Назва товару" value="{{ product.name }}"><br>
+    <textarea name="product_description" id="product_description" cols="30" rows="10" placeholder="Опис товару">{{ product.description }}</textarea><br>
+    <input type="text" name="product_price" id="product_price" placeholder="Ціна товару" value="{{ product.price }}"><br>
+
+    {% if not product.options == [] %}
+        <br>
+        <h3>Опції</h3>
+    	{% for option in product.options %}
+            <div data-product-option="{{ loop.index0 }}">
+                <input type="text" name="option_name_{{ loop.index0 }}" id="option_name_{{ loop.index0 }}" value="{{ option.option_name }}"><br>
+                <input type="text" name="option_price_{{ loop.index0 }}" id="option_price_{{ loop.index0 }}" value="{{ option.option_price }}"><br>
+                <button>del</button>
+                <br><br>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <br><br>
+    <div>
+        <input type="text" name="option_name" id="option_name" placeholder="Вкажіть назву опції"><br>
+        <input type="number" name="option_price" id="option_price" placeholder="Вкажіть ціну опції"><br>
+        <select>
+            <optgroup label="Додаткові опції" id="product_options"></optgroup>
+        </select>
+
+        <button type="button" id="add-option-btn">Додати опцію</button>
+    </div>
+    <br>
+    <button type="submit" id="save-button">Зберегти</button>
+</form>
+
+<script>
+        const option_name_input = document.querySelector("#option_name")
+        const option_price_input = document.querySelector("#option_price")
+        const add_option_btn = document.querySelector("#add-option-btn")
+
+        add_option_btn.addEventListener("click", () => {
+            const option_name = option_name_input.value
+            const option_price = option_price_input.value
+
+            if (option_name && option_price) {
+                const product_form = document.querySelector("#edit_product_form")
+                const product_options = document.querySelector("#product_options")
+
+                const hiddenInput = document.createElement("input")
+                const new_option = document.createElement("option")
+
+                hiddenInput.type = "hidden"
+                hiddenInput.id = "product_option[]"
+                hiddenInput.name = "product_option[]"
+                hiddenInput.value = `${option_name}-${option_price}`
+
+                new_option.value = option_name
+                new_option.text = `${option_name} — ${option_price} UAH`
+
+                product_form.appendChild(hiddenInput)
+                product_options.appendChild(new_option)
+
+                option_name_input.value = ""
+                option_price_input.value = ""
+            } else {
+                console.log("НЕ ВСЕ ПОЛЯ БЫЛИ ЗАПОЛНЕНЫ")
+            }
+        })
+        const submitForm = async () => {
+        const productOptionsSelect = document.querySelector("#product_options");
+        const selectedOptions = [];
+
+        for (const option of productOptionsSelect.options) {
+            selectedOptions.push(JSON.parse(option.value));
+        }
+
+        try {
+            const response = await fetch("/product/edit/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ selected_options: selectedOptions })
+            });
+
+            if (!response.ok) {
+                throw new Error("Ошибка при отправке данных на сервер");
+            }
+
+            window.location.href = "/admin/"
+
+            console.log("Данные успешно отправлены на сервер");
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const saveButton = document.querySelector("#save-button");
+    saveButton.addEventListener("click", submitForm);
+
+    var deleteButtons = document.querySelectorAll('button');
+    deleteButtons.forEach(function(button, index) {
+        button.addEventListener('click', function() {
+            var divToDelete = document.querySelector('[data-product-option="' + index + '"]');
+            divToDelete.parentNode.removeChild(divToDelete);
+        });
+    });
+</script>

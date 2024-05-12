@@ -1,0 +1,21 @@
+{% extends "admin_layout.html" %}
+
+{% block admin_main %}
+    <div class="admin-section">
+        <form class="authorization-form" id="website-configuration">
+            <img class="authorization-logo" src="{{ url_for('assets', path='images/svg/logo.svg') }}" alt="logo">
+            <h2 class="authorization-title">СТВОРЕННЯ АДМІНІСТРАТОРА</h2>
+            <div class="items-column">
+                <input type="text" name="username" id="username" placeholder="Логін админістратора" required>
+                <input type="password" name="password" id="password" placeholder="Пароль" required>
+                <input type="password" name="repeat-password" id="repeat-password" placeholder="Повторіть пароль" required>
+                <p class="authorization-errors"></p>
+                <button type="submit" class="authorization-btn">СТВОРИТИ АДМІНІСТРАТОРА</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('assets', path='js/ajax/website-configuration.js') }}"></script>
+{% endblock %}
